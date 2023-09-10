@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    username: postgres
+    password: mercury
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/joycrochet
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:6401/eureka
+
+# Circuit Breaker
+resilience4j.circuitbreaker:
+  instances:
+    conversation-service:
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 10
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 5
+      failureRateThreshold: 50
+      waitDurationInOpenState: 5s
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnable: true
+# Response Timeout
+resilience4j.timelimiter:
+  instances:
+    conversation-service:
+      timeoutDuration: 3s
+
+# Retry
+resilience4j.retry:
+  instances:
+    conversation-service:
+      max-attempts: 3
+      wait-duration: 3s
+
+# Bulkhead
+resilience4j.bulkhead:
+  instances:
+    conversation-service:
+      maxWaitDuration: 10ms
+      maxConcurrentCalls: 20
+
+resilience4j.thread-pool-bulkhead:
+  instances:
+    subscription-serice:
+      maxThreadPoolSize: 1
+      coreThreadPoolSize: 1
+      queueCapacity: 1
+      writableStackTraceEnabled: true
+
+
+server:
+  port: '6405'

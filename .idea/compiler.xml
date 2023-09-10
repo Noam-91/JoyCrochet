@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="joycrochet-eureka" />
+        <module name="joycrochet-auth" />
+        <module name="joycrochet-inventory" />
+        <module name="joycrochet-main" />
+        <module name="joycrochet-api-gateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="joycrochet-api-gateway" target="11" />
+      <module name="joycrochet-auth" target="11" />
+      <module name="joycrochet-eureka" target="11" />
+      <module name="joycrochet-inventory" target="11" />
+      <module name="joycrochet-main" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="joycrochet-api-gateway" options="-parameters" />
+      <module name="joycrochet-auth" options="-parameters" />
+      <module name="joycrochet-eureka" options="-parameters" />
+      <module name="joycrochet-inventory" options="-parameters" />
+      <module name="joycrochet-main" options="-parameters" />
+    </option>
+  </component>
+</project>
